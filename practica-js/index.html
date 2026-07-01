@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso Completo de JavaScript</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-bottom: 4px solid #667eea;
+        }
+
+        .card-header h2 {
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+
+        .level {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .topics {
+            list-style: none;
+            margin-bottom: 15px;
+        }
+
+        .topics li {
+            padding: 5px 0;
+            color: #666;
+            border-bottom: 1px solid #eee;
+        }
+
+        .topics li:before {
+            content: "✓ ";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .topics li:last-child {
+            border-bottom: none;
+        }
+
+        .duration {
+            color: #999;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 10px;
+            transition: background 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .btn:hover {
+            background: #764ba2;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .stats {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            text-align: center;
+        }
+
+        .stat {
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .resources {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+
+        .resources h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .resource-item h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .resource-item ul {
+            list-style: none;
+        }
+
+        .resource-item li {
+            padding: 5px 0;
+            color: #666;
+        }
+
+        .resource-item li:before {
+            content: "→ ";
+            color: #667eea;
+            margin-right: 8px;
+        }
+
+        .roadmap {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+
+        .roadmap h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-item {
+            margin-bottom: 30px;
+            padding-left: 40px;
+            position: relative;
+        }
+
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            background: #667eea;
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 0 0 2px #667eea;
+        }
+
+        .timeline-item:after {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 20px;
+            width: 2px;
+            height: 30px;
+            background: #ddd;
+        }
+
+        .timeline-item:last-child:after {
+            display: none;
+        }
+
+        .timeline-title {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 1.1em;
+        }
+
+        .timeline-desc {
+            color: #666;
+            margin-top: 5px;
+        }
+
+        footer {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 30px;
+            color: #666;
+        }
+
+        .success-message {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>📚 Curso Completo de JavaScript</h1>
+            <p class="subtitle">Tu ruta hacia Angular</p>
+            <p style="margin-top: 20px; color: #999;">Aprende JavaScript desde cero y prepárate para Angular</p>
+        </header>
+
+        <!-- Success Message -->
+        <div class="success-message">
+            <strong>¡Bienvenido!</strong> Este curso contiene 10 archivos con todo lo que necesitas para dominar JavaScript. Desde fundamentos hasta conceptos avanzados. Dedicación de 8-10 semanas con 2-3 horas diarias.
+        </div>
+
+        <!-- Statistics -->
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number">10</div>
+                <div class="stat-label">Archivos de Estudio</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">8-10</div>
+                <div class="stat-label">Semanas</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">100+</div>
+                <div class="stat-label">Ejercicios</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">7</div>
+                <div class="stat-label">Niveles</div>
+            </div>
+        </div>
+
+        <!-- Main Grid -->
+        <div class="grid">
+            <!-- Nivel 1 -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>01. Fundamentos</h2>
+                    <div class="level">Nivel 1️⃣</div>
+                </div>
+                <div class="card-body">
+                    <ul class="topics">
+                        <li>Variables (const, let, var)</li>
+                        <li>Tipos de datos primitivos</li>
+                        <li>Operadores básicos</li>
+                        <li>Scope y contexto</li>
+                    </ul>
+                    <p class="duration">⏱️ 1 semana</p>
+                    <button class="btn" onclick="abrirArchivo('01-fundamentos.js')">Abrir →</button>
+                </div>
+            </div>
+
+            <!-- Nivel 2 -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>02. Condicionales y Bucles</h2>
+                    <div class="level">Nivel 2️⃣</div>
+                </div>
+                <div class="card-body">
+                    <ul class="topics">
+                        <li>if/else/switch</li>
+                        <li>Bucles (for, while)</li>
+                        <li>Arrays y métodos</li>
+                        <li>forEach, map, filter</li>
+                    </ul>
+                    <p class="duration">⏱️ 1 semana</p>
+                    <button class="btn" onclick="abrirArchivo('02-condicionales-bucles.js')">Abrir →</button>
+                </div>
+            </div>
+
+            <!-- Nivel 3 -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>03. Funciones</h2>
+                    <div class="level">Nivel 3️⃣</div>
+                </div>
+                <div class="card-body">
+                    <ul class="topics">
+                        <li>Funciones básicas</li>
+                        <li>Arrow functions</li>
+                        <li>Closures y scope</li>
+                        <li>Recursión</li>
+                    </ul>
+                    <p class="duration">⏱️ 1 semana</p>
+                    <button class="btn" onclick="abrirArchivo('03-funciones.js')">Abrir →</button>
+                </div>
+            </div>
+
+            <!-- Nivel 4 -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>04. Objetos</h2>
+                    <div class="level">Nivel 4️⃣</div>
+                </div>
+                <div class="card-body">
+                    <ul class="topics">
+                        <li>Objetos literales</li>
+                        <li>Clases ES6</li>
+                        <li>Herencia</li>
+                        <li>This binding</li>
+                    </ul>
+                    <p class="duration">⏱️ 1 semana</p>
+                    <button class="btn" onclick="abrirArchivo('04-objetos.js')">Abrir →</button>
+                </div>
+            </div>
+
+            <!-- Nivel 5 -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>05. Asincronía</h2>
+                    <div class="level">Nivel 5️⃣</div>
+                </div>
+                <div class="card-body">
+                    <ul class="topics">
+                        <li>Promesas</li>
+                        <li>Async/Await</li>
+                        <li>Fetch API</li>
+                        <li>Manejo de errores</li>
+                    </ul>
+                    <p class="duration">⏱️ 1-2 semanas</p>
+                    <button class="btn" onclick="abrirArchivo('05-asinconia.js')">Abrir →</button>
+                </div>
+            </div>
+
+            <!-- Nivel 6 -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>06. DOM</h2>
+                    <div class="level">Nivel 6️⃣</div>
+                </div>
+                <div class="card-body">
+                    <ul class="topics">
+                        <li>Seleccionar elementos</li>
+                        <li>Manipular contenido</li>
+                        <li>Event listeners</li>
+                        <li>Formularios</li>
+                    </ul>
+                    <p class="duration">⏱️ 1-2 semanas</p>
+                    <button class="btn" onclick="abrirArchivo('06-dom.js')">Teoría →</button>
+                    <button class="btn btn-secondary" onclick="abrirArchivo('ejemplo-dom.html')">Práctica →</button>
+                </div>
+            </div>
+
+            <!-- Nivel 7 -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>07. Conceptos Avanzados</h2>
+                    <div class="level">Nivel 7️⃣</div>
+                </div>
+                <div class="card-body">
+                    <ul class="topics">
+                        <li>Prototipos</li>
+                        <li>Map y Set</li>
+                        <li>Regex</li>
+                        <li>Generators</li>
+                    </ul>
+                    <p class="duration">⏱️ 2 semanas</p>
+                    <button class="btn" onclick="abrirArchivo('07-conceptos-avanzados.js')">Abrir →</button>
+                </div>
+            </div>
+
+            <!-- Resumen -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>08. Resumen y Roadmap</h2>
+                    <div class="level">Referencia</div>
+                </div>
+                <div class="card-body">
+                    <ul class="topics">
+                        <li>Cheat sheet completo</li>
+                        <li>Errores comunes</li>
+                        <li>FAQ</li>
+                        <li>Roadmap a Angular</li>
+                    </ul>
+                    <p class="duration">⏱️ Referencia</p>
+                    <button class="btn" onclick="abrirArchivo('08-resumen-roadmap.js')">Abrir →</button>
+                </div>
+            </div>
+
+            <!-- Ejercicios -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>09. Ejercicios Resueltos</h2>
+                    <div class="level">Práctica</div>
+                </div>
+                <div class="card-body">
+                    <ul class="topics">
+                        <li>Soluciones a todos los ejercicios</li>
+                        <li>Proyectos integradores</li>
+                        <li>Todo List</li>
+                        <li>Carrito de compras</li>
+                    </ul>
+                    <p class="duration">⏱️ Referencia</p>
+                    <button class="btn" onclick="abrirArchivo('09-ejercicios-resueltos.js')">Abrir →</button>
+                </div>
+            </div>
+
+            <!-- TypeScript -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>10. Introducción a TypeScript</h2>
+                    <div class="level">Adelanto</div>
+                </div>
+                <div class="card-body">
+                    <ul class="topics">
+                        <li>¿Qué es TypeScript?</li>
+                        <li>Tipos básicos</li>
+                        <li>Interfaces</li>
+                        <li>Decoradores</li>
+                    </ul>
+                    <p class="duration">⏱️ Próximo paso</p>
+                    <button class="btn" onclick="abrirArchivo('10-introduccion-typescript.js')">Abrir →</button>
+                </div>
+            </div>
+
+            <!-- README -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>📖 README</h2>
+                    <div class="level">Importante</div>
+                </div>
+                <div class="card-body">
+                    <ul class="topics">
+                        <li>Cómo usar este material</li>
+                        <li>Duración estimada</li>
+                        <li>Consejos para aprender</li>
+                        <li>Recursos externos</li>
+                    </ul>
+                    <p class="duration">⏱️ Lee primero</p>
+                    <button class="btn" onclick="abrirArchivo('README.md')">Abrir →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Roadmap -->
+        <div class="roadmap">
+            <h2>🎯 Tu Camino de Aprendizaje</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-title">Semanas 1-2: JavaScript Básico</div>
+                    <div class="timeline-desc">Variables, tipos, operadores, condicionales</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-title">Semanas 3-4: Control de Flujo</div>
+                    <div class="timeline-desc">Bucles, arrays, métodos funcionales</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-title">Semanas 5-6: Funciones y Objetos</div>
+                    <div class="timeline-desc">Funciones avanzadas, clases, herencia</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-title">Semanas 7-8: Asincronía y DOM</div>
+                    <div class="timeline-desc">Promesas, async/await, manipulación del DOM</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-title">Semanas 9-10: Conceptos Avanzados</div>
+                    <div class="timeline-desc">Prototipos, Map/Set, Regex, Generators</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-title">Siguiente: TypeScript</div>
+                    <div class="timeline-desc">Tipos estáticos, interfaces, decoradores</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-title">Luego: Angular</div>
+                    <div class="timeline-desc">Componentes, servicios, routing, RxJS</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resources -->
+        <div class="resources">
+            <h2>📚 Recursos Recomendados</h2>
+            <div class="resource-grid">
+                <div class="resource-item">
+                    <h3>Documentación</h3>
+                    <ul>
+                        <li>MDN Web Docs</li>
+                        <li>JavaScript.info</li>
+                        <li>TypeScript Docs</li>
+                    </ul>
+                </div>
+                <div class="resource-item">
+                    <h3>Práctica Online</h3>
+                    <ul>
+                        <li>HackerRank</li>
+                        <li>CodeWars</li>
+                        <li>LeetCode</li>
+                    </ul>
+                </div>
+                <div class="resource-item">
+                    <h3>Videos</h3>
+                    <ul>
+                        <li>Traversy Media</li>
+                        <li>The Net Ninja</li>
+                        <li>FreeCodeCamp</li>
+                    </ul>
+                </div>
+                <div class="resource-item">
+                    <h3>Comunidades</h3>
+                    <ul>
+                        <li>Stack Overflow</li>
+                        <li>Reddit r/learnprogramming</li>
+                        <li>Discord Angular</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <h3>✨ Consejos para Éxito ✨</h3>
+            <p style="margin: 15px 0; font-size: 1em;">
+                <strong>Practica diariamente →</strong> Es más importante consistencia que intensidad<br>
+                <strong>Lee código de otros →</strong> Aprende de los mejores<br>
+                <strong>Crea proyectos →</strong> La mejor forma de aprender<br>
+                <strong>No memorices →</strong> Entiende y los conceptos vendrán naturalmente
+            </p>
+            <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;">
+            <p>🚀 <strong>¡Estás listo para comenzar!</strong> Abre <strong>01-fundamentos.js</strong> y comienza hoy.</p>
+            <p style="margin-top: 20px; color: #999; font-size: 0.9em;">
+                Creado con ❤️ para ayudarte a aprender JavaScript
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        function abrirArchivo(nombre) {
+            alert(`Para abrir ${nombre}:\n\n1. Abre tu editor de código (VS Code, WebStorm, etc.)\n2. Ve a la carpeta practica-js\n3. Abre el archivo "${nombre}"\n\nPara archivos .html, abre en el navegador.\nPara archivos .js, ejecuta con: node ${nombre}`);
+        }
+    </script>
+</body>
+</html>
+

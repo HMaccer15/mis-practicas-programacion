@@ -1,0 +1,9 @@
+# Configuración interna de WebStorm / IntelliJ
+.idea/
+**/ .idea/
+*.iws
+*.iml
+
+# Archivos del sistema operativo (opcional pero recomendado)
+.DS_Store
+Thumbs.db

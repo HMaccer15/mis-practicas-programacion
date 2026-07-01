@@ -1,0 +1,26 @@
+{
+  "name": "practica-typescript",
+  "version": "1.0.0",
+  "description": "Guía completa de TypeScript",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "demo:basicos": "ts-node src/01-tipos-basicos.ts",
+    "demo:avanzados": "ts-node src/02-tipos-avanzados.ts",
+    "demo:interfaces": "ts-node src/03-interfaces.ts",
+    "demo:clases": "ts-node src/04-clases.ts",
+    "demo:funciones": "ts-node src/05-funciones.ts",
+    "demo:genericos": "ts-node src/06-genericos.ts",
+    "demo:tareas": "ts-node src/07-gestor-tareas.ts",
+    "demo:validador": "ts-node src/08-validador.ts",
+    "demo:api": "ts-node src/09-api-rest.ts"
+  },
+  "keywords": ["typescript", "learning"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^25.5.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.2"
+  }
+}

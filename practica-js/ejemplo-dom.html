@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplos de DOM</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .contenedor {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #007bff;
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            color: #555;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .seccion {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        button.secundario {
+            background-color: #6c757d;
+        }
+
+        button.secundario:hover {
+            background-color: #545b62;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: Arial, sans-serif;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+        }
+
+        .lista {
+            list-style: none;
+        }
+
+        .lista li {
+            background: #f8f9fa;
+            padding: 10px;
+            margin: 8px 0;
+            border-left: 4px solid #007bff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .lista li.completado {
+            background: #d4edda;
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        .lista button {
+            padding: 5px 10px;
+            font-size: 12px;
+            margin: 0;
+        }
+
+        .contador {
+            font-size: 2em;
+            text-align: center;
+            margin: 20px 0;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal.visible {
+            display: block;
+        }
+
+        .modal-contenido {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 8px;
+        }
+
+        .modal-cerrar {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .modal-cerrar:hover {
+            color: #000;
+        }
+
+        .resultado {
+            background: #e3f2fd;
+            border-left: 4px solid #007bff;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+
+        .error {
+            background: #ffebee;
+            border-left-color: #f44336;
+            color: #c62828;
+        }
+
+        .exito {
+            background: #e8f5e9;
+            border-left-color: #4caf50;
+            color: #2e7d32;
+        }
+    </style>
+</head>
+<body>
+    <div class="contenedor">
+        <h1>Ejemplos Prácticos de DOM en JavaScript</h1>
+
+        <!-- SECCIÓN 1: Manipular Clases y Estilos -->
+        <div class="seccion">
+            <h2>1. Cambiar Estilos y Clases</h2>
+            <button id="btnCambiarColor">Cambiar Color de Fondo</button>
+            <button id="btnResetear">Resetear</button>
+            <div id="caja" style="width: 100px; height: 100px; background-color: lightblue; margin-top: 10px; border-radius: 8px;"></div>
+        </div>
+
+        <!-- SECCIÓN 2: Contador -->
+        <div class="seccion">
+            <h2>2. Contador</h2>
+            <button id="btnDecrementa">-</button>
+            <span class="contador" id="contador">0</span>
+            <button id="btnIncrementa">+</button>
+        </div>
+
+        <!-- SECCIÓN 3: Entrada de Texto -->
+        <div class="seccion">
+            <h2>3. Obtener Valor de Input</h2>
+            <input type="text" id="miInput" placeholder="Escribe algo...">
+            <button id="btnMostrarValor">Mostrar Valor</button>
+            <div id="resultado1" class="resultado" style="display: none;"></div>
+        </div>
+
+        <!-- SECCIÓN 4: Lista Dinámica -->
+        <div class="seccion">
+            <h2>4. Lista Dinámica</h2>
+            <input type="text" id="nuevoItem" placeholder="Nuevo item...">
+            <button id="btnAgregarItem">Agregar</button>
+            <ul id="lista" class="lista"></ul>
+        </div>
+
+        <!-- SECCIÓN 5: Formulario -->
+        <div class="seccion">
+            <h2>5. Formulario</h2>
+            <form id="miFormulario">
+                <input type="text" id="nombre" placeholder="Nombre" required>
+                <input type="email" id="email" placeholder="Email" required>
+                <textarea id="mensaje" placeholder="Mensaje" rows="4" required></textarea>
+                <button type="submit">Enviar</button>
+            </form>
+            <div id="resultado2" class="resultado" style="display: none;"></div>
+        </div>
+
+        <!-- SECCIÓN 6: Modal -->
+        <div class="seccion">
+            <h2>6. Modal</h2>
+            <button id="btnAbrirModal">Abrir Modal</button>
+            <div id="miModal" class="modal">
+                <div class="modal-contenido">
+                    <span class="modal-cerrar">&times;</span>
+                    <h2>Contenido del Modal</h2>
+                    <p>Este es un modal de ejemplo. Puedes cerrarlo con el botón X o clickeando afuera.</p>
+                    <button class="secundario" id="btnCerrarModal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 7: Filtro de Lista -->
+        <div class="seccion">
+            <h2>7. Filtrar Elementos</h2>
+            <input type="text" id="busqueda" placeholder="Buscar en la lista...">
+            <ul id="listaFiltrable" class="lista">
+                <li class="item-filtrable">Manzana</li>
+                <li class="item-filtrable">Plátano</li>
+                <li class="item-filtrable">Naranja</li>
+                <li class="item-filtrable">Fresa</li>
+                <li class="item-filtrable">Piña</li>
+            </ul>
+        </div>
+
+        <!-- SECCIÓN 8: Event Delegation -->
+        <div class="seccion">
+            <h2>8. Event Delegation</h2>
+            <button id="btnAgregarBotones">Agregar 3 botones</button>
+            <div id="contenedorBotones"></div>
+            <div id="resultado3" class="resultado" style="display: none;"></div>
+        </div>
+    </div>
+
+    <script>
+        // ═══════════════════════════════════════════════════════════
+        // SECCIÓN 1: Cambiar Estilos
+        // ═══════════════════════════════════════════════════════════
+
+        const btnCambiarColor = document.getElementById("btnCambiarColor");
+        const btnResetear = document.getElementById("btnResetear");
+        const caja = document.getElementById("caja");
+
+        const colores = ["lightcoral", "lightgreen", "lightyellow", "lightpink", "lightcyan"];
+        let indiceColor = 0;
+
+        btnCambiarColor.addEventListener("click", () => {
+            caja.style.backgroundColor = colores[indiceColor];
+            indiceColor = (indiceColor + 1) % colores.length;
+        });
+
+        btnResetear.addEventListener("click", () => {
+            caja.style.backgroundColor = "lightblue";
+            indiceColor = 0;
+        });
+
+        // ═══════════════════════════════════════════════════════════
+        // SECCIÓN 2: Contador
+        // ═══════════════════════════════════════════════════════════
+
+        const btnIncrementa = document.getElementById("btnIncrementa");
+        const btnDecrementa = document.getElementById("btnDecrementa");
+        const contadorDisplay = document.getElementById("contador");
+
+        let contador = 0;
+
+        btnIncrementa.addEventListener("click", () => {
+            contador++;
+            contadorDisplay.textContent = contador;
+        });
+
+        btnDecrementa.addEventListener("click", () => {
+            contador--;
+            contadorDisplay.textContent = contador;
+        });
+
+        // ═══════════════════════════════════════════════════════════
+        // SECCIÓN 3: Entrada de Texto
+        // ═══════════════════════════════════════════════════════════
+
+        const miInput = document.getElementById("miInput");
+        const btnMostrarValor = document.getElementById("btnMostrarValor");
+        const resultado1 = document.getElementById("resultado1");
+
+        btnMostrarValor.addEventListener("click", () => {
+            const valor = miInput.value;
+            if (valor.trim() === "") {
+                resultado1.textContent = "⚠️ El campo está vacío";
+                resultado1.classList.add("error");
+                resultado1.classList.remove("exito");
+            } else {
+                resultado1.textContent = `✓ Ingresaste: "${valor}"`;
+                resultado1.classList.add("exito");
+                resultado1.classList.remove("error");
+            }
+            resultado1.style.display = "block";
+        });
+
+        // Mostrar resultado al presionar Enter
+        miInput.addEventListener("keypress", (evento) => {
+            if (evento.key === "Enter") {
+                btnMostrarValor.click();
+            }
+        });
+
+        // ═══════════════════════════════════════════════════════════
+        // SECCIÓN 4: Lista Dinámica
+        // ═══════════════════════════════════════════════════════════
+
+        const nuevoItemInput = document.getElementById("nuevoItem");
+        const btnAgregarItem = document.getElementById("btnAgregarItem");
+        const lista = document.getElementById("lista");
+
+        btnAgregarItem.addEventListener("click", agregarItem);
+        nuevoItemInput.addEventListener("keypress", (evento) => {
+            if (evento.key === "Enter") agregarItem();
+        });
+
+        function agregarItem() {
+            const texto = nuevoItemInput.value.trim();
+            if (texto === "") {
+                alert("Por favor ingresa un item");
+                return;
+            }
+
+            const li = document.createElement("li");
+            li.innerHTML = `
+                <span>${texto}</span>
+                <div>
+                    <button class="btn-completar">✓</button>
+                    <button class="btn-eliminar" style="background-color: #dc3545;">✕</button>
+                </div>
+            `;
+
+            // Botón completar
+            li.querySelector(".btn-completar").addEventListener("click", () => {
+                li.classList.toggle("completado");
+            });
+
+            // Botón eliminar
+            li.querySelector(".btn-eliminar").addEventListener("click", () => {
+                li.remove();
+            });
+
+            lista.appendChild(li);
+            nuevoItemInput.value = "";
+            nuevoItemInput.focus();
+        }
+
+        // ═══════════════════════════════════════════════════════════
+        // SECCIÓN 5: Formulario
+        // ═══════════════════════════════════════════════════════════
+
+        const miFormulario = document.getElementById("miFormulario");
+        const resultado2 = document.getElementById("resultado2");
+
+        miFormulario.addEventListener("submit", (evento) => {
+            evento.preventDefault();
+
+            const nombre = document.getElementById("nombre").value;
+            const email = document.getElementById("email").value;
+            const mensaje = document.getElementById("mensaje").value;
+
+            // Validar email simple
+            const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+            if (!emailValido) {
+                resultado2.textContent = "❌ Email no válido";
+                resultado2.classList.add("error");
+                resultado2.classList.remove("exito");
+            } else {
+                resultado2.innerHTML = `
+                    ✓ ¡Formulario enviado!<br>
+                    <strong>Nombre:</strong> ${nombre}<br>
+                    <strong>Email:</strong> ${email}<br>
+                    <strong>Mensaje:</strong> ${mensaje}
+                `;
+                resultado2.classList.add("exito");
+                resultado2.classList.remove("error");
+                miFormulario.reset();
+            }
+
+            resultado2.style.display = "block";
+        });
+
+        // ═══════════════════════════════════════════════════════════
+        // SECCIÓN 6: Modal
+        // ═══════════════════════════════════════════════════════════
+
+        const miModal = document.getElementById("miModal");
+        const btnAbrirModal = document.getElementById("btnAbrirModal");
+        const btnCerrarModal = document.getElementById("btnCerrarModal");
+        const cerrar = document.querySelector(".modal-cerrar");
+
+        btnAbrirModal.addEventListener("click", () => {
+            miModal.classList.add("visible");
+        });
+
+        function cerrarModal() {
+            miModal.classList.remove("visible");
+        }
+
+        btnCerrarModal.addEventListener("click", cerrarModal);
+        cerrar.addEventListener("click", cerrarModal);
+
+        // Cerrar al clickear fuera del modal
+        window.addEventListener("click", (evento) => {
+            if (evento.target === miModal) {
+                cerrarModal();
+            }
+        });
+
+        // ═══════════════════════════════════════════════════════════
+        // SECCIÓN 7: Filtro de Lista
+        // ═══════════════════════════════════════════════════════════
+
+        const busqueda = document.getElementById("busqueda");
+        const listaFiltrable = document.getElementById("listaFiltrable");
+        const items = listaFiltrable.querySelectorAll(".item-filtrable");
+
+        busqueda.addEventListener("input", (evento) => {
+            const termino = evento.target.value.toLowerCase();
+
+            items.forEach((item) => {
+                const texto = item.textContent.toLowerCase();
+                if (texto.includes(termino)) {
+                    item.style.display = "list-item";
+                } else {
+                    item.style.display = "none";
+                }
+            });
+        });
+
+        // ═══════════════════════════════════════════════════════════
+        // SECCIÓN 8: Event Delegation
+        // ═══════════════════════════════════════════════════════════
+
+        const btnAgregarBotones = document.getElementById("btnAgregarBotones");
+        const contenedorBotones = document.getElementById("contenedorBotones");
+        const resultado3 = document.getElementById("resultado3");
+
+        btnAgregarBotones.addEventListener("click", () => {
+            for (let i = 0; i < 3; i++) {
+                const btn = document.createElement("button");
+                btn.textContent = `Botón ${contenedorBotones.children.length + 1}`;
+                btn.className = "btn-dinamico";
+                contenedorBotones.appendChild(btn);
+            }
+        });
+
+        // Event delegation: un listener para todos los botones dinámicos
+        contenedorBotones.addEventListener("click", (evento) => {
+            if (evento.target.classList.contains("btn-dinamico")) {
+                resultado3.textContent = `✓ Hiciste clic en: ${evento.target.textContent}`;
+                resultado3.classList.add("exito");
+                resultado3.style.display = "block";
+            }
+        });
+    </script>
+</body>
+</html>
+
